@@ -2,6 +2,8 @@
  *	Copyright (c) 2007 STMicroelectronics
  */
 
+#include "interruptions.h"
+
 typedef void @far (*interrupt_handler_t)(void);
 
 struct interrupt_vector {
@@ -28,7 +30,7 @@ struct interrupt_vector const _vectab[] = {
 	{0x82, NonHandledInterrupt}, /* irq3  */
 	{0x82, NonHandledInterrupt}, /* irq4  */
 	{0x82, NonHandledInterrupt}, /* irq5  */
-	{0x82, NonHandledInterrupt}, /* irq6  */
+	{0x82, PD_IRQHandler}, /* irq6  */
 	{0x82, NonHandledInterrupt}, /* irq7  */
 	{0x82, NonHandledInterrupt}, /* irq8  */
 	{0x82, NonHandledInterrupt}, /* irq9  */

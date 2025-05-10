@@ -1,5 +1,4 @@
     #include "ssd1306.h"
-		#include "stm8s_i2c.h"
     #include <string.h>
 
     #define ADDR 0x3C
@@ -28,165 +27,216 @@
     #define HEIGHT 64
     #define PAGES 8
 
-    #define SCL 11
-    #define SDA 10
-    #define I2C_INST i2c1
+		#define DISPLAY_PORT GPIOB
+    #define SCL GPIO_PIN_4
+    #define SDA GPIO_PIN_5
 
-    // Primeiro byte de controle 0x40
-    static uint8_t s_page_buffer[9] = {0x40};
-    static uint8_t s_subline_buffer[2] = {0x40, 0x00};
     static const uint8_t s_digits_8x8[10][8] = {
-        // Dígito 0
+        // Dï¿½gito 0
         { 0x00, 0x3E, 0x7F, 0x49, 0x45, 0x7F, 0x3E, 0x00 },
-        // Dígito 1
+        // Dï¿½gito 1
         { 0x00, 0x00, 0x42, 0x7F, 0x7F, 0x40, 0x00, 0x00 },
-        // Dígito 2
+        // Dï¿½gito 2
         { 0x00, 0x42, 0x63, 0x71, 0x59, 0x4F, 0x46, 0x00 },
-        // Dígito 3
+        // Dï¿½gito 3
         { 0x00, 0x22, 0x63, 0x49, 0x49, 0x7F, 0x36, 0x00 },
-        // Dígito 4
+        // Dï¿½gito 4
         { 0x00, 0x18, 0x1C, 0x16, 0x7F, 0x7F, 0x10, 0x00 },
-        // Dígito 5
+        // Dï¿½gito 5
         { 0x00, 0x27, 0x67, 0x45, 0x45, 0x7D, 0x39, 0x00 },
-        // Dígito 6
+        // Dï¿½gito 6
         { 0x00, 0x3C, 0x7E, 0x4B, 0x49, 0x79, 0x30, 0x00 },
-        // Dígito 7
+        // Dï¿½gito 7
         { 0x00, 0x01, 0x71, 0x79, 0x0D, 0x07, 0x03, 0x00 },
-        // Dígito 8
+        // Dï¿½gito 8
         { 0x00, 0x36, 0x7F, 0x49, 0x49, 0x7F, 0x36, 0x00 },
-        // Dígito 9
+        // Dï¿½gito 9
         { 0x00, 0x06, 0x4F, 0x49, 0x69, 0x3F, 0x1E, 0x00 },
     };
 
-    static void ssd1306_write_cmd(uint8_t cmd)
+		static void ssd1306_begin_i2c(uint8_t control_byte);
+		static void ssd1306_write(uint8_t data);
+		static void ssd1306_end_i2c(void);
+		static void ssd1306_draw_page(uint8_t collumn, uint8_t number, uint8_t inverted);
+
+		static void ssd1306_begin_i2c(uint8_t control_byte)
+		{
+			while(I2C_GetFlagStatus(I2C_FLAG_BUSBUSY));
+			
+			I2C_GenerateSTART(ENABLE);
+			while (!I2C_CheckEvent(I2C_EVENT_MASTER_MODE_SELECT));
+			
+			I2C_Send7bitAddress(ADDR, I2C_DIRECTION_TX);
+			while (!I2C_CheckEvent(I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
+			
+			I2C_SendData(control_byte);
+			while (!I2C_CheckEvent(I2C_EVENT_MASTER_BYTE_TRANSMITTED));
+		}
+
+    static void ssd1306_write(uint8_t data)
     {
-        uint8_t val[2] = { 0x80, cmd };
-        i2c_write_blocking(I2C_INST, ADDR, val, sizeof(val), false);
+			I2C_SendData(data);
+			while(!I2C_CheckEvent(I2C_EVENT_MASTER_BYTE_TRANSMITTED));
     }
+
+		static void ssd1306_end_i2c()
+		{
+			I2C_GenerateSTOP(ENABLE);
+		}
 
     void ssd1306_init()
     {
-        i2c_init(I2C_INST, 400000);
-        gpio_set_function(SDA, GPIO_FUNC_I2C);
-        gpio_set_function(SCL, GPIO_FUNC_I2C);
-        gpio_pull_up(SDA);
-        gpio_pull_up(SCL);
+			uint16_t i = 0;
+			uint8_t column = 85;
+			
+			GPIO_DeInit(DISPLAY_PORT);
+			GPIO_Init(DISPLAY_PORT, SCL, GPIO_MODE_OUT_PP_HIGH_FAST);
+			GPIO_Init(DISPLAY_PORT, SDA, GPIO_MODE_OUT_PP_HIGH_FAST);
+		
+			I2C_DeInit();
+			I2C_Init(400000, ADDR, I2C_DUTYCYCLE_2, I2C_ACK_CURR, I2C_ADDMODE_7BIT, 2);
+			I2C_Cmd(ENABLE);
+			
+			// Enviando comandos
+			ssd1306_begin_i2c(0x00);
 
-        // Make the I2C pins available to picotool
-        bi_decl(bi_2pins_with_func(SDA, SCL, GPIO_FUNC_I2C));
+			ssd1306_write(SET_DISP);
+			ssd1306_write(SET_MEM_ADDR);
+			ssd1306_write(0x00);
+			ssd1306_write(SET_DISP_START_LINE);
+			ssd1306_write(SET_SEG_REMAP | 0x01);
+			ssd1306_write(SET_MUX_RATIO);
+			ssd1306_write(HEIGHT - 1);
+			ssd1306_write(SET_COM_OUT_DIR | 0x08);
+			ssd1306_write(SET_DISP_OFFSET);
+			ssd1306_write(0x00);
+			ssd1306_write((WIDTH> 2 * HEIGHT) ? 0x02 : 0x12);
+			ssd1306_write(SET_DISP_CLK_DIV);
+			ssd1306_write(0x80);
+			ssd1306_write(SET_PRECHARGE);
+			ssd1306_write(0xF1); // 0x22 if self.external_vcc else 0xF1, ?
+			ssd1306_write(SET_VCOM_DESEL);
+			ssd1306_write(0x30);
+			ssd1306_write(SET_CONTRAST);
+			ssd1306_write(0xFF);
+			ssd1306_write(SET_ENTIRE_ON);
+			ssd1306_write(SET_NORM_INV);
+			ssd1306_write(SET_IREF_SELECT);
+			ssd1306_write(0x30);
+			ssd1306_write(SET_CHARGE_PUMP);
+			ssd1306_write(0x14); // 0x10 if self.external_vcc else 0x14 ?
+			ssd1306_write(SET_DISP | 0x01);
 
-        ssd1306_write_cmd(SET_DISP);
-        ssd1306_write_cmd(SET_MEM_ADDR);
-        ssd1306_write_cmd(0x00);
-        ssd1306_write_cmd(SET_DISP_START_LINE);
-        ssd1306_write_cmd(SET_SEG_REMAP | 0x01);
-        ssd1306_write_cmd(SET_MUX_RATIO);
-        ssd1306_write_cmd(HEIGHT - 1);
-        ssd1306_write_cmd(SET_COM_OUT_DIR | 0x08);
-        ssd1306_write_cmd(SET_DISP_OFFSET);
-        ssd1306_write_cmd(0x00);
-        ssd1306_write_cmd((WIDTH> 2 * HEIGHT) ? 0x02 : 0x12);
-        ssd1306_write_cmd(SET_DISP_CLK_DIV);
-        ssd1306_write_cmd(0x80);
-        ssd1306_write_cmd(SET_PRECHARGE);
-        ssd1306_write_cmd(0xF1); // 0x22 if self.external_vcc else 0xF1, ?
-        ssd1306_write_cmd(SET_VCOM_DESEL);
-        ssd1306_write_cmd(0x30);
-        ssd1306_write_cmd(SET_CONTRAST);
-        ssd1306_write_cmd(0xFF);
-        ssd1306_write_cmd(SET_ENTIRE_ON);
-        ssd1306_write_cmd(SET_NORM_INV);
-        ssd1306_write_cmd(SET_IREF_SELECT);
-        ssd1306_write_cmd(0x30);
-        ssd1306_write_cmd(SET_CHARGE_PUMP);
-        ssd1306_write_cmd(0x14); // 0x10 if self.external_vcc else 0x14 ?
-        ssd1306_write_cmd(SET_DISP | 0x01);
+			ssd1306_write(SET_COM_OUT_DIR | (1 << 3));
+			ssd1306_write(SET_SEG_REMAP | 1);
+			
+			// Enviando comandos para limpar a tela
+			ssd1306_write(SET_COL_ADDR);
+			ssd1306_write(0);
+			ssd1306_write(WIDTH - 1);
 
-        ssd1306_write_cmd(SET_COM_OUT_DIR | (1 << 3));
-        ssd1306_write_cmd(SET_SEG_REMAP | 1);
+			ssd1306_write(SET_PAGE_ADDR);
+			ssd1306_write(0);
+			ssd1306_write(PAGES - 1);
+			
+			ssd1306_end_i2c();
+			
+			// Enviando dados
+			ssd1306_begin_i2c(0x40);
+			
+			for (i = 0; i < WIDTH * PAGES; i++)
+				ssd1306_write(0x00);
+				
+			ssd1306_end_i2c();
+			
+			for (i = 0; i < 2; i++, column -= 20)
+			{
+				// Enviando comandos
+				ssd1306_begin_i2c(0x00);
+				
+				ssd1306_write(SET_COL_ADDR);
+				ssd1306_write(column - 12);
+				ssd1306_write(column - 11);
 
-        memset(&s_page_buffer[1], 0x00, sizeof(s_page_buffer) - 1);
-
-        for (uint8_t i = 0; i < WIDTH; i += 8)
-        {
-            for (uint8_t j = 0; j < PAGES; j++)
-            {
-                ssd1306_write_cmd(SET_COL_ADDR);
-                ssd1306_write_cmd(i);
-                ssd1306_write_cmd(i + 7);
-
-                ssd1306_write_cmd(SET_PAGE_ADDR);
-                ssd1306_write_cmd(j);
-                ssd1306_write_cmd(j);
-                
-                i2c_write_blocking(I2C_INST, ADDR, s_page_buffer, sizeof(s_page_buffer), false);
-            }
-        }
-
-        uint8_t collumn = 85;
-        uint8_t dots[] = {0x40, 0x24, 0x24};
-        for (uint8_t i = 0, collumn = 85; i < 2; i++, collumn -= 20)
-        {
-            ssd1306_write_cmd(SET_COL_ADDR);
-            ssd1306_write_cmd(collumn - 12);
-            ssd1306_write_cmd(collumn - 11);
-
-            // Desenha na página 3
-            ssd1306_write_cmd(SET_PAGE_ADDR);
-            ssd1306_write_cmd(3);
-            ssd1306_write_cmd(4);
-
-            i2c_write_blocking(I2C_INST, ADDR, dots, sizeof(dots), false);
-        }
-
+				// Desenha na página 3
+				ssd1306_write(SET_PAGE_ADDR);
+				ssd1306_write(3);
+				ssd1306_write(3);
+				
+				ssd1306_end_i2c();
+				
+				// Enviando dados
+				ssd1306_begin_i2c(0x40);
+				
+				ssd1306_write(0x24);
+				ssd1306_write(0x24);
+				
+				ssd1306_end_i2c();
+			}
     }
 
     void ssd1306_power(bool on)
     {
-        ssd1306_write_cmd(SET_DISP | on);
+			while(I2C_GetFlagStatus(I2C_FLAG_BUSBUSY));
+			
+			I2C_GenerateSTART(ENABLE);
+			while (!I2C_CheckEvent(I2C_EVENT_MASTER_MODE_SELECT));
+			
+			I2C_Send7bitAddress(ADDR, I2C_DIRECTION_TX);
+			while (!I2C_CheckEvent(I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
+			
+			// Envia apenas 1 byte
+			I2C_SendData(0x80);
+			while (!I2C_CheckEvent(I2C_EVENT_MASTER_BYTE_TRANSMITTED));
+			
+			I2C_SendData(SET_DISP | on);
+			while(!I2C_CheckEvent(I2C_EVENT_MASTER_BYTE_TRANSMITTED));
+			
+			I2C_GenerateSTOP(ENABLE);
     }
 
     static void ssd1306_draw_page(uint8_t collumn, uint8_t number, uint8_t inverted)
     {
-        ssd1306_write_cmd(SET_COL_ADDR);
-        ssd1306_write_cmd(collumn);
-        ssd1306_write_cmd(collumn + 7);
+			uint8_t i;
+			
+			// Enviando comandos
+			ssd1306_begin_i2c(0x00);
+				
+			ssd1306_write(SET_COL_ADDR);
+			ssd1306_write(collumn);
+			ssd1306_write(collumn + 7);
 
-        // Desenha na página 3
-        ssd1306_write_cmd(SET_PAGE_ADDR);
-        ssd1306_write_cmd(3);
-        ssd1306_write_cmd(3);
+			// Desenha na página 3 e 4
+			ssd1306_write(SET_PAGE_ADDR);
+			ssd1306_write(3);
+			ssd1306_write(4);
+			
+			ssd1306_end_i2c();
 
-        memcpy(&s_page_buffer[1], s_digits_8x8[number], sizeof(s_page_buffer) - 1);
-
-        i2c_write_blocking(I2C_INST, ADDR, s_page_buffer, sizeof(s_page_buffer), false);
-
-        for (uint8_t i = 0; i < 8; i++)
-            s_page_buffer[i + 1] = inverted;
-
-        ssd1306_write_cmd(SET_COL_ADDR);
-        ssd1306_write_cmd(collumn);
-        ssd1306_write_cmd(collumn + 7);
-
-        // Desenha na página 4
-        ssd1306_write_cmd(SET_PAGE_ADDR);
-        ssd1306_write_cmd(4);
-        ssd1306_write_cmd(4);
-
-        i2c_write_blocking(I2C_INST, ADDR, s_page_buffer, sizeof(s_page_buffer), false);
+			// Enviando dados
+			ssd1306_begin_i2c(0x40);
+			
+			// Número
+			for (i = 0; i < 8; i++)
+				ssd1306_write(s_digits_8x8[number][i]);
+			// Sublinhado, caso nao seja o selecionado limpa e se for desenha
+			for (i = 0; i < 8; i++)
+				ssd1306_write(inverted);
+				
+			ssd1306_end_i2c();
     }
 
     void ssd1306_update_timer(uint32_t timer, uint8_t inverted)
     {
-        uint8_t desconstructed_timer[3] = { (timer % 60), (timer / 60) % 60, (timer / 3600) };
-        uint8_t column = 85;
+			uint8_t desconstructed_timer[3] = { (timer % 60), (timer / 60) % 60, (timer / 3600) };
+			uint8_t i, column = 85;
+			
+			for (i = 0; i < 3; i++)
+			{
+				ssd1306_draw_page(column - 10, desconstructed_timer[i] / 10, inverted & 1); // Dezenas
+				ssd1306_draw_page(column, desconstructed_timer[i] % 10, inverted & 1); // Unidades
 
-        for (uint8_t i = 0; i < 3; i++)
-        {
-            ssd1306_draw_page(column - 10, desconstructed_timer[i] / 10, inverted & 1); // Dezenas
-            ssd1306_draw_page(column, desconstructed_timer[i] % 10, inverted & 1); // Unidades
-
-            column -= 20;
-            inverted >>= 1;
-        }
+				column -= 20;
+				inverted >>= 1;
+			}
     }
