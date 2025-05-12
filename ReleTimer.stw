@@ -8,5 +8,5 @@ Filename=reletimer.stp
 Dependencies=
 [Options]
 ActiveProject=reletimer
-ActiveConfig=Release
+ActiveConfig=Debug
 AddSortedElements=0

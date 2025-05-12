@@ -1,7 +1,7 @@
     #include "ssd1306.h"
     #include <string.h>
 
-    #define ADDR 0x3C
+    #define ADDR 0x78
 
     // register definitions
     #define SET_CONTRAST            0x81
@@ -86,16 +86,19 @@
 
     void ssd1306_init()
     {
+			volatile uint32_t n = 100000;
 			uint16_t i = 0;
 			uint8_t column = 85;
 			
 			GPIO_DeInit(DISPLAY_PORT);
-			GPIO_Init(DISPLAY_PORT, SCL, GPIO_MODE_OUT_PP_HIGH_FAST);
-			GPIO_Init(DISPLAY_PORT, SDA, GPIO_MODE_OUT_PP_HIGH_FAST);
+			GPIO_Init(DISPLAY_PORT, SCL, GPIO_MODE_OUT_OD_HIZ_FAST);
+			GPIO_Init(DISPLAY_PORT, SDA, GPIO_MODE_OUT_OD_HIZ_FAST);
 		
 			I2C_DeInit();
-			I2C_Init(400000, ADDR, I2C_DUTYCYCLE_2, I2C_ACK_CURR, I2C_ADDMODE_7BIT, 2);
+			I2C_Init(400000, 1, I2C_DUTYCYCLE_2, I2C_ACK_CURR, I2C_ADDMODE_7BIT, 4);
 			I2C_Cmd(ENABLE);
+			
+			while(n--);
 			
 			// Enviando comandos
 			ssd1306_begin_i2c(0x00);

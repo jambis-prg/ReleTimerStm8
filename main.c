@@ -133,7 +133,7 @@ static void rot_handler()
 static void TIM1_Config()
 {
 	TIM1_DeInit();
-	TIM1_TimeBaseInit(2000, TIM1_COUNTERMODE_UP, 65536, 0);
+	TIM1_TimeBaseInit(2000, TIM1_COUNTERMODE_UP, 65535, 0);
 	TIM1_Cmd(ENABLE);
 }
 
@@ -146,13 +146,16 @@ int main()
 		TIM1_Config();
 	
 		// Rele
+		GPIO_DeInit(GPIOD);
 		GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);
 		GPIO_WriteLow(GPIOD, GPIO_PIN_3);
 		
 		// Buzzer
+		GPIO_DeInit(GPIOA);
 		GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);
 		GPIO_WriteLow(GPIOA, GPIO_PIN_3);
 
+		
 		GPIO_Init(GPIOD, GPIO_PIN_4, GPIO_MODE_IN_PU_IT); // SW
 		GPIO_Init(GPIOD, GPIO_PIN_5, GPIO_MODE_IN_PU_IT); // DT
 		GPIO_Init(GPIOD, GPIO_PIN_6, GPIO_MODE_IN_PU_IT); // CLK
@@ -163,6 +166,16 @@ int main()
 		next_value = gate_a ^ 1;
 		
 		enableInterrupts();
+		
+		CLK_DeInit();
+		CLK_HSECmd(DISABLE);
+		CLK_LSICmd(DISABLE);
+		
+		CLK_CCOConfig(CLK_OUTPUT_HSI);
+		CLK_CCOCmd(DISABLE);
+		
+		CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV4);
+		CLK_HSICmd(ENABLE);
 	
 		// Habilita o clock para o I2C
 		CLK_PeripheralClockConfig(CLK_PERIPHERAL_I2C, ENABLE);

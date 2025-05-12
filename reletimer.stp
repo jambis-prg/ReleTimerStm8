@@ -54,26 +54,27 @@ Settings.1.7=Root.Config.1.Settings.7
 Settings.1.8=Root.Config.1.Settings.8
 
 [Root.Config.0.Settings.0]
-String.6.0=2025,5,8,12,8,35
+String.6.0=2025,5,12,7,26,41
 String.100.0=ST Assembler Linker
 String.100.1=ST7 Cosmic
 String.100.2=STM8 Cosmic
 String.100.3=ST7 Metrowerks V1.1
 String.100.4=Raisonance
 String.101.0=STM8 Cosmic
-String.102.0=D:\Arquivos de Programas\COSMIC\FSE_Compilers
+String.102.0=C:\Program Files (x86)\COSMIC\FSE_Compilers\CXSTM8
 String.103.0=
-String.104.0=CXSTM8\Hstm8
-String.105.0=CXSTM8\Lib
+String.104.0=Hstm8
+String.105.0=Lib
 String.106.0=Debug
 String.107.0=reletimer.elf
-Int.108=0
+Int.108=1
 
 [Root.Config.0.Settings.1]
 String.6.0=2025,5,8,12,8,35
 String.100.0=$(TargetFName)
 String.101.0=
-String.103.0=.\;..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc;..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src;..\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include;
+String.102.0=
+String.103.0=.\;..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc;..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src;..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc;c:\program files (x86)\stmicroelectronics\st_toolset\include;
 
 [Root.Config.0.Settings.2]
 String.2.0=
@@ -82,10 +83,10 @@ String.100.0=STM8S103F3P
 
 [Root.Config.0.Settings.3]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 -i"..\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include"  -i..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  -i..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  -customDbg -customDebCompat -customOpt-no -customLst -l +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
+String.3.0=cxstm8 +warn +mods0 -customDebCompat -customOpt-no -customC-pp -customLst -l -i"c:\program files (x86)\stmicroelectronics\st_toolset\include" -i"..\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include" -i..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc -i..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2025,5,8,12,8,35
+String.6.0=2025,5,12,7,25,27
 
 [Root.Config.0.Settings.4]
 String.2.0=Assembling $(InputFile)...
@@ -106,6 +107,7 @@ String.3.1=cvdwarf $(OutputPath)$(TargetSName).sm8 -fakeVectAddr0x8000
 String.4.0=$(OutputPath)$(TargetFName)
 String.5.0=$(OutputPath)$(TargetSName).map $(OutputPath)$(TargetSName).st7 $(OutputPath)$(TargetSName).s19
 String.6.0=2025,5,8,12,8,35
+String.100.0=
 String.101.0=crtsi.st7
 String.102.0=+seg .const -b 0x8080 -m 0x1f80  -n .const -it 
 String.102.1=+seg .text -a .const  -n .text 
@@ -134,26 +136,26 @@ String.2.0=Performing Custom Build on $(InputFile)
 String.6.0=2025,5,8,12,8,35
 
 [Root.Config.1.Settings.0]
-String.6.0=2025,5,8,12,8,35
+String.6.0=2025,5,12,7,30,33
 String.100.0=ST Assembler Linker
 String.100.1=ST7 Cosmic
 String.100.2=STM8 Cosmic
 String.100.3=ST7 Metrowerks V1.1
 String.100.4=Raisonance
 String.101.0=STM8 Cosmic
-String.102.0=D:\Arquivos de Programas\COSMIC\FSE_Compilers
+String.102.0=C:\Program Files (x86)\COSMIC\FSE_Compilers\CXSTM8
 String.103.0=
-String.104.0=CXSTM8\Hstm8
-String.105.0=CXSTM8\Lib
+String.104.0=Hstm8
+String.105.0=Lib
 String.106.0=Release
 String.107.0=reletimer.elf
-Int.108=0
+Int.108=1
 
 [Root.Config.1.Settings.1]
 String.6.0=2025,5,8,12,8,35
 String.100.0=$(TargetFName)
 String.101.0=
-String.103.0=.\;..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc;..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src;..\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include;
+String.103.0=.\;..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc;..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src;..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc;c:\program files (x86)\stmicroelectronics\st_toolset\include;
 
 [Root.Config.1.Settings.2]
 String.2.0=
@@ -162,7 +164,7 @@ String.100.0=STM8S103F3P
 
 [Root.Config.1.Settings.3]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 -i"..\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include"  -i..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  -i..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
+String.3.0=cxstm8 -i"c:\program files (x86)\stmicroelectronics\st_toolset\include"  -i"..\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include"  -i..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  -i..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2025,5,8,12,8,35
@@ -177,6 +179,7 @@ String.6.0=2025,5,8,12,8,35
 [Root.Config.1.Settings.5]
 String.2.0=Running Pre-Link step
 String.6.0=2025,5,8,12,8,35
+String.8.0=
 
 [Root.Config.1.Settings.6]
 String.2.0=Running Linker
@@ -215,7 +218,7 @@ String.6.0=2025,5,8,12,8,35
 [Root.Source Files]
 ElemType=Folder
 PathName=Source Files
-Child=Root.Source Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_clk.c
+Child=Root.Source Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_tim1.c
 Next=Root.Include Files
 Config.0=Root.Source Files.Config.0
 Config.1=Root.Source Files.Config.1
@@ -240,10 +243,10 @@ Int.1=0
 
 [Root.Source Files.Config.0.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 -i"..\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include"  -i..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  -i..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  -customDbg -customDebCompat -customOpt-no -customLst -l +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
+String.3.0=cxstm8 +warn +mods0 -customDebCompat -customOpt-no -customC-pp -customLst -l -i"c:\program files (x86)\stmicroelectronics\st_toolset\include" -i"..\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include" -i..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc -i..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2025,5,8,12,8,35
+String.6.0=2025,5,12,7,25,27
 
 [Root.Source Files.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...
@@ -267,7 +270,7 @@ Int.1=0
 
 [Root.Source Files.Config.1.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 -i"..\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include"  -i..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  -i..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
+String.3.0=cxstm8 -i"c:\program files (x86)\stmicroelectronics\st_toolset\include"  -i"..\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include"  -i..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  -i..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2025,5,8,12,8,35
@@ -286,29 +289,29 @@ String.4.0=
 String.5.0=
 String.6.0=2025,5,8,12,8,35
 
-[Root.Source Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_clk.c]
+[Root.Source Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_tim1.c]
 ElemType=File
-PathName=..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_clk.c
-Next=Root.Source Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_tim1.c
+PathName=..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_tim1.c
+Next=Root.Source Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_i2c.c
 
-[Root.Source Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_tim1.c]
+[Root.Source Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_i2c.c]
 ElemType=File
-PathName=..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_tim1.c
-Next=Root.Source Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_i2c.c
+PathName=..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_i2c.c
+Next=Root.Source Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_gpio.c
 
-[Root.Source Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_i2c.c]
+[Root.Source Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_gpio.c]
 ElemType=File
-PathName=..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_i2c.c
-Next=Root.Source Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_gpio.c
+PathName=..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_gpio.c
+Next=Root.Source Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_exti.c
 
-[Root.Source Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_gpio.c]
+[Root.Source Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_exti.c]
 ElemType=File
-PathName=..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_gpio.c
-Next=Root.Source Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_exti.c
+PathName=..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_exti.c
+Next=Root.Source Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_clk.c
 
-[Root.Source Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_exti.c]
+[Root.Source Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_clk.c]
 ElemType=File
-PathName=..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_exti.c
+PathName=..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\src\stm8s_clk.c
 Next=Root.Source Files.ssd1306.c
 
 [Root.Source Files.ssd1306.c]
@@ -333,7 +336,7 @@ PathName=stm8_interrupt_vector.c
 [Root.Include Files]
 ElemType=Folder
 PathName=Include Files
-Child=Root.Include Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_clk.h
+Child=Root.Include Files.c:\program files (x86)\stmicroelectronics\st_toolset\include\stm8s103f3p.h
 Config.0=Root.Include Files.Config.0
 Config.1=Root.Include Files.Config.1
 
@@ -357,10 +360,10 @@ Int.1=0
 
 [Root.Include Files.Config.0.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 -i"..\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include"  -i..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  -i..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  -customDbg -customDebCompat -customOpt-no -customLst -l +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
+String.3.0=cxstm8 +warn +mods0 -customDebCompat -customOpt-no -customC-pp -customLst -l -i"c:\program files (x86)\stmicroelectronics\st_toolset\include" -i"..\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include" -i..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc -i..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2025,5,8,12,8,35
+String.6.0=2025,5,12,7,25,27
 
 [Root.Include Files.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...
@@ -384,7 +387,7 @@ Int.1=0
 
 [Root.Include Files.Config.1.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 -i"..\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include"  -i..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  -i..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
+String.3.0=cxstm8 -i"c:\program files (x86)\stmicroelectronics\st_toolset\include"  -i"..\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include"  -i..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  -i..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc  +mods0 -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile) 
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2025,5,8,12,8,35
@@ -403,29 +406,44 @@ String.4.0=
 String.5.0=
 String.6.0=2025,5,8,12,8,35
 
-[Root.Include Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_clk.h]
+[Root.Include Files.c:\program files (x86)\stmicroelectronics\st_toolset\include\stm8s103f3p.h]
 ElemType=File
-PathName=..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_clk.h
+PathName=c:\program files (x86)\stmicroelectronics\st_toolset\include\stm8s103f3p.h
+Next=Root.Include Files.c:\program files (x86)\stmicroelectronics\st_toolset\include\stm8s103f.h
+
+[Root.Include Files.c:\program files (x86)\stmicroelectronics\st_toolset\include\stm8s103f.h]
+ElemType=File
+PathName=c:\program files (x86)\stmicroelectronics\st_toolset\include\stm8s103f.h
+Next=Root.Include Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_tim1.h
+
+[Root.Include Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_tim1.h]
+ElemType=File
+PathName=..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_tim1.h
+Next=Root.Include Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_i2c.h
+
+[Root.Include Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_i2c.h]
+ElemType=File
+PathName=..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_i2c.h
+Next=Root.Include Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_gpio.h
+
+[Root.Include Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_gpio.h]
+ElemType=File
+PathName=..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_gpio.h
+Next=Root.Include Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_exti.h
+
+[Root.Include Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_exti.h]
+ElemType=File
+PathName=..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_exti.h
+Next=Root.Include Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_clk.h
+
+[Root.Include Files...\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_clk.h]
+ElemType=File
+PathName=..\..\..\downloads\en.stsw-stm8069\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_clk.h
 Next=Root.Include Files.interruptions.h
 
 [Root.Include Files.interruptions.h]
 ElemType=File
 PathName=interruptions.h
-Next=Root.Include Files...\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include\stm8s103f.h
-
-[Root.Include Files...\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include\stm8s103f.h]
-ElemType=File
-PathName=..\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include\stm8s103f.h
-Next=Root.Include Files...\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include\stm8s103f3p.h
-
-[Root.Include Files...\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include\stm8s103f3p.h]
-ElemType=File
-PathName=..\..\..\..\arquivos de programas\stmicroelectronics\st_toolset\include\stm8s103f3p.h
-Next=Root.Include Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_tim1.h
-
-[Root.Include Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_tim1.h]
-ElemType=File
-PathName=..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_tim1.h
 Next=Root.Include Files.stm8s_conf.h
 
 [Root.Include Files.stm8s_conf.h]
@@ -436,18 +454,3 @@ Next=Root.Include Files.stm8s.h
 [Root.Include Files.stm8s.h]
 ElemType=File
 PathName=stm8s.h
-Next=Root.Include Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_i2c.h
-
-[Root.Include Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_i2c.h]
-ElemType=File
-PathName=..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_i2c.h
-Next=Root.Include Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_gpio.h
-
-[Root.Include Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_gpio.h]
-ElemType=File
-PathName=..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_gpio.h
-Next=Root.Include Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_exti.h
-
-[Root.Include Files...\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_exti.h]
-ElemType=File
-PathName=..\..\..\documentos\stm8\stm8s_stdperiph_lib\libraries\stm8s_stdperiph_driver\inc\stm8s_exti.h
